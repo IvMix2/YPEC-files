@@ -228,3 +228,29 @@ INSERT INTO "product-order" (order_id, product_id, product_quantity) VALUES
 (49, 18, 3),
 (50, 19, 3),
 (50, 20, 2);
+
+
+
+
+
+INSERT INTO "supplier-product" (supplier_id, product_id) VALUES
+(1, 1),
+(1, 11),
+(2, 2),
+(2, 12),
+(3, 3),
+(3, 13),
+(4, 4),
+(4, 14),
+(5, 5),
+(5, 15),
+(6, 6),
+(6, 16),
+(7, 7),
+(7, 17),
+(8, 8),
+(8, 18),
+(9, 9),
+(9, 19),
+(10, 10),
+(10, 20);
