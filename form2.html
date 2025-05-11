@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            form {
+                font-family: Helvetica, sans-serif;
+                font-size: small;
+                border: solid 3px rgb(40, 111, 165);
+                background-color: rgb(35, 141, 198);
+                width: 300px;
+                color: white;
+            }
+            .form-field-top {
+                padding: 15px 15px 0px 15px;
+            }
+            .form-field-bottom {
+                padding: 0 15px 15px 15px;
+            }
+            .title {
+                font-size: large;
+            }
+            hr {
+                border: 0;
+                height: 1px;
+                background: white;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            input {
+                display: block;
+                border-radius: 0;
+                border: solid 1px #959595;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .password-field {
+                display: flex;
+                justify-content: space-between;
+            }
+            .password-field > div {
+                width: 47%;
+            }
+            input[type="submit"] {
+                background: rgb(233, 219, 112);
+                width: 25%;
+                padding: 4px;
+                margin: 0;
+                font-size: smaller;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="" method="post">
+            <div class="form-field-top">
+                <span class="title">Регистрация</span>
+            </div>
+            <hr />
+            <div class="form-field-bottom">
+                E-mail
+                <input type="email" name="email" />
+                <div class="password-field">
+                    <div>
+                        Пароль
+                        <input type="password" name="password" />
+                    </div>
+                    <div>
+                        Еще раз
+                        <input type="password" name="password2" />
+                    </div>
+                </div>
+                <input type="submit" value="Отправить" />
+            </div>
+        </form>
+    </body>
+</html>
