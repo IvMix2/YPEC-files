@@ -1,0 +1,191 @@
+1. arr = [[1, 4, 5], [3, 9, 2], [8, 7, 6]]
+2. columns = длина первой строки в arr
+3. rows = количество строк в arr
+4. Пока i = 0; i < (rows * columns - 1); i++
+    4.1. Пока r = 0; r < rows; r++
+        4.1.1. Пока c = 0; c < columns; c++
+            4.1.1.1. nextR = r
+            4.1.1.2. nextC = c + 1
+            4.1.1.3. Если nextC >= columns
+                4.1.1.3.1. nextC = 0
+                4.1.1.3.2. nextR = nextR + 1
+            4.1.1.4. Если nextR >= rows, перейти к следующей итерации цикла c
+            4.1.1.5. Если arr[r][c] > arr[nextR][nextC]
+                4.1.1.5.1. t = arr[r][c]
+                4.1.1.5.2. arr[r][c] = arr[nextR][nextC]
+                4.1.1.5.3. arr[nextR][nextC] = t
+5. Вывод arr
+
+
+
+
+
+
+
+
+
+
+1. firstInputRow = "10 10"
+2. secondInputRow = "6"
+3. thirdInputRow = "4"
+4. width = целое число из первого элемента массива, полученного разделением firstInputRow по пробелу
+5. height = целое число из второго элемента массива, полученного разделением firstInputRow по пробелу
+6. streetsX = массив, полученный разделением secondInputRow по пробелу
+7. streetsY = массив, полученный разделением thirdInputRow по пробелу
+8. numHouse = 0
+9. numStreet = 0
+10. numPark = 0
+11. matrix = новый двумерный массив размера height x width,  matrix = array[height][width]
+12. Пока i = 0; i < height; i++
+    12.1 matrix[i] = новый массив размера width, matrix[i] = array[width]
+13. Пока i = 0; i < height; i++
+    13.1. Пока j = 0; j < width; j++
+        13.1.1. Если ((i равно 0 или i равно (height - 1)) или (j равно 0 или j равно (width - 1)))
+            13.1.1.1. matrix[i][j] = 0
+        13.1.2. Иначе
+            13.1.2.1. matrix[i][j] = 1
+14. Для каждого i из streetsX
+    14.1. Пока j = 0; j < width; j++
+        14.1.1. matrix[i - 1][j] = 0
+15. Для каждого l из streetsY
+    15.1. Пока j = 0; j < height; j++
+        15.1.1. matrix[j][l - 1] = 0
+16. Пока i = 0; i < height; i++
+    16.1. Пока j = 0; j < width; j++
+        16.1.1. Если не ((i равно 0 или i равно (height - 1)) или (j равно 0 или j равно (width - 1)))
+            16.1.1.1. Если ((matrix[i + 1][j] равно 1 или matrix[i + 1][j] равно 2) и (matrix[i - 1][j] равно 1 или matrix[i - 1][j] равно 2) и (matrix[i][j + 1] равно 1 или matrix[i][j + 1] равно 2) и (matrix[i][j - 1] равно 1 или matrix[i][j - 1] равно 2))
+                16.1.1.1.1. matrix[i][j] = 2
+                16.1.1.1.2. numPark = numPark + 1
+            16.1.1.2. Если matrix[i][j] равно 0
+                16.1.1.2.1. numStreet = numStreet + 1
+17. numHouse = width * height - numPark - numStreet
+18. Вызов функции printMatrix(matrix)
+19. Вывод numHouse, numPark, numStreet
+
+// Функция printMatrix(matrix)
+20. Пока i = 0; i < длина matrix; i++
+    20.1. row = ""
+    20.2. Пока j = 0; j < длина первой строки matrix; j++
+        20.2.1. row = row + matrix[i][j]
+    20.3. Вывод row
+   
+  
+ 
+
+
+
+
+1. Функция canReachN(N)
+    1.1. Функция solve(start, n)
+        1.1.1. Если n равно start
+            1.1.1.1. Возврат true
+        1.1.2. Если start < n
+            1.1.2.1. Возврат solve(start + 3, n) ИЛИ solve(start + 5, n)
+    1.2. Если N > 200
+        1.2.1. Вывод "Incorrect input!"
+    1.3. Если solve(1, N)
+        1.3.1. Вывод "YES"
+    1.4. Иначе
+        1.4.1. Вывод "NO"
+
+2. Вызов canReachN(9)
+
+
+
+
+
+
+
+
+
+
+
+
+1. n = 5
+2. //Создание матрицы
+3. matrix = новый массив размера n (matrix = array[n][n])
+4. Пока i = 0; i < n; i++
+    4.1. matrix[i] = новый массив размера n (matrix[i] = array[n])
+    4.2. Пока j = 0; j < n; j++
+        4.2.1. matrix[i][j] = 0
+
+5. num = 1
+6. rowStart = 0
+7. rowEnd = n - 1
+8. colStart = 0
+9. colEnd = n - 1
+
+10. Функция fill(matrix, num, rowStart, rowEnd, colStart, colEnd)
+    10.1. Если (rowStart > rowEnd) ИЛИ (colStart > colEnd)
+        10.1.1. Вернуть
+    10.2. Пока i = colStart; i <= colEnd; i++
+        10.2.1. matrix[rowStart][i] = num
+        10.2.2. num = num + 1
+    10.3. rowStart = rowStart + 1
+    10.4. Пока i = rowStart; i <= rowEnd; i++
+        10.4.1. matrix[i][colEnd] = num
+        10.4.2. num = num + 1
+    10.5. colEnd = colEnd - 1
+    10.6. Если rowStart <= rowEnd
+        10.6.1. Пока i = colEnd; i >= colStart; i--
+            10.6.1.1. matrix[rowEnd][i] = num
+            10.6.1.2. num = num + 1
+        10.6.2. rowEnd = rowEnd - 1
+    10.7. Если colStart <= colEnd
+        10.7.1. Пока i = rowEnd; i >= rowStart; i--
+            10.7.1.1. matrix[i][colStart] = num
+            10.7.1.2. num = num + 1
+        10.7.2. colStart = colStart + 1
+    10.8. Вызов fill(matrix, num, rowStart, rowEnd, colStart, colEnd)
+
+11. Вызов fill(matrix, num, rowStart, rowEnd, colStart, colEnd)
+12. Вызов printMatrix(matrix)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Функция hanoi(n, from, to, aux)
+    1.1. moves = новый пустой массив
+    1.2. Функция move(n, from, to, aux)
+        1.2.1. Если n > 0
+            1.2.1.1. Если n < 2
+                1.2.1.1.1. Добавить [n, from, aux] в конец массива moves
+                1.2.1.1.2. Добавить [n, aux, to] в конец массива moves
+                1.2.1.1.3. Вернуть
+            1.2.1.2. Вызвать move(n - 1, from, to, aux)
+            1.2.1.3. Добавить [n, from, aux] в конец массива moves
+            1.2.1.4. Вызвать moveBack(n - 1, to, from, aux)
+            1.2.1.5. Добавить [n, aux, to] в конец массива moves
+            1.2.1.6. Вызвать move(n - 1, from, to, aux)
+
+    1.3. Функция moveBack(n, from, to, aux)
+        1.3.1. Если n > 0
+            1.3.1.1. Если n < 2
+                1.3.1.1.1. Добавить [n, from, to] в конец массива moves
+                1.3.1.1.2. Вернуть
+            1.3.1.2. Вызвать moveBack(n - 1, from, to, aux)
+            1.3.1.3. Вызвать moveBack(n - 1, to, aux, from)
+            1.3.1.4. Добавить [n, from, to] в конец массива moves
+            1.3.1.5. Вызвать move(n - 1, aux, to, from)
+    1.4. Если n > 0
+        1.4.1. Вызвать move(n - 1, from, to, aux)
+        1.4.2. Добавить [n, from, aux] в конец массива moves
+        1.4.3. Вызвать moveBack(n-1, to, from, aux)
+        1.4.4. Добавить [n, aux, to] в конец массива moves
+        1.4.5. Вызвать move(n - 1, from, to, aux)
+    1.5. Вернуть moves
+
+2. moves = результат вызова hanoi(4, 1, 3, 2)
+3. Пока i = 0; i < длина массива moves; i++
+    3.1. Вывести элемент массива moves с индексом i
+4. Вывести "Moves: " + длина массива moves
