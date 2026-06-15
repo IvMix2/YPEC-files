@@ -1,0 +1,89 @@
+#include <stdio.h>
+
+#define NMAX 10
+
+void input(int *buffer, int *length, int *error);
+void output(int *buffer, int length);
+int sum_numbers(int *buffer, int length);
+int find_numbers(int *buffer, int length, int number, int *numbers);
+
+int main() {
+  int n, data[NMAX], new_data[NMAX];
+  int error = 0;
+
+  input(data, &n, &error);
+
+  if (!error) {
+    int sum = sum_numbers(data, n);
+    
+    // Если четных элементов нет или сумма равна 0, это ошибка по ТЗ
+    if (sum == 0) {
+      printf("n/a");
+    } else {
+      int new_length = find_numbers(data, n, sum, new_data);
+      
+      printf("%d\n", sum);
+      output(new_data, new_length);
+    }
+  } else {
+    printf("n/a");
+  }
+
+  return 0;
+}
+
+void input(int *buffer, int *length, int *error) {
+  char c;
+  if (scanf("%d%c", length, &c) != 2 || (c != '\n' && c != ' ') || *length <= 0 || *length > NMAX) {
+    *error = 1;
+  } else {
+    int *p = buffer;
+    while (p - buffer < *length && !(*error)) {
+      if (p - buffer == *length - 1) {
+        if (scanf("%d%c", p, &c) != 2 || (c != '\n' && c != ' ')) {
+          *error = 1;
+        }
+      } else {
+        if (scanf("%d", p) != 1) {
+          *error = 1;
+        }
+      }
+      p++;
+    }
+  }
+}
+
+void output(int *buffer, int length) {
+  for (int i = 0; i < length; i++) {
+    printf("%d", *(buffer + i));
+    if (i < length - 1) {
+      printf(" ");
+    }
+  }
+}
+
+// Исправляем цикл автора (начинаем с 0) и учитываем, что 0 — нечетное
+int sum_numbers(int *buffer, int length) {
+  int sum = 0;
+  for (int i = 0; i < length; i++) {
+    if (*(buffer + i) != 0 && *(buffer + i) % 2 == 0) {
+      sum += *(buffer + i);
+    }
+  }
+  return sum;
+}
+
+// Находим элементы, на которые сумма делится без остатка
+int find_numbers(int *buffer, int length, int number, int *numbers) {
+  int count = 0;
+  for (int i = 0; i < length; i++) {
+    int current_val = *(buffer + i);
+    // Защита от деления на ноль!
+    if (current_val != 0 && number % current_val == 0) {
+      *(numbers + count) = current_val;
+      count++;
+    }
+  }
+  return count; // Возвращаем длину нового массива
+}
+
