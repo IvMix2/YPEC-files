@@ -1,0 +1,75 @@
+#include <math.h>
+#include <stdio.h>
+
+#define NMAX 30
+
+int input(int *a, int *n);
+double mean(int *a, int n);
+double variance(int *a, int n);
+int search(int *a, int n, double m, double v);
+
+int main() {
+  int n, data[NMAX];
+
+  if (input(data, &n) == 0) {
+    double m = mean(data, n);
+    double v = variance(data, n);
+
+    int result = search(data, n, m, v);
+    printf("%d", result);
+  } else {
+    printf("n/a");
+  }
+
+  return 0;
+}
+
+int input(int *a, int *n) {
+  int error = 0;
+  if (scanf("%d", n) != 1 || *n <= 0 || *n > NMAX) {
+    error = 1;
+  } else {
+    int *p = a;
+    while (p - a < *n && !error) {
+      if (scanf("%d", p) != 1) {
+        error = 1;
+      }
+      p++;
+    }
+  }
+  return error;
+}
+
+double mean(int *a, int n) {
+  double sum = 0;
+  for (int i = 0; i < n; i++) {
+    sum += a[i];
+  }
+  return sum / n;
+}
+
+double variance(int *a, int n) {
+  double m = mean(a, n);
+  double sum_sq = 0;
+  for (int i = 0; i < n; i++) {
+    sum_sq += (double)a[i] * a[i];
+  }
+  return (sum_sq / n) - (m * m);
+}
+
+int search(int *a, int n, double m, double v) {
+  int found_val = 0;
+  double sigma = sqrt(v);
+  double upper_bound = m + 3.0 * sigma;
+
+  for (int i = 0; i < n; i++) {
+    // 1. Четное 2. >= mean 3. <= mean + 3*sigma 4. != 0
+    if (a[i] % 2 == 0 && a[i] >= m && a[i] <= upper_bound && a[i] != 0) {
+      found_val = a[i];
+      break; // Нам нужно только ПЕРВОЕ вхождение
+    }
+  }
+
+  return found_val;
+}
+
