@@ -1,0 +1,82 @@
+#include <stdio.h>
+
+#define NMAX 10
+
+int input(int *a, int *n, int *c_shift);
+void output(int *a, int n);
+void shift(int *a, int n, int c_shift);
+void reverse(int *a, int start, int end);
+
+int main() {
+  int n, data[NMAX], c_shift;
+
+  if (input(data, &n, &c_shift) == 0) {
+    shift(data, n, c_shift);
+    output(data, n);
+  } else {
+    printf("n/a");
+  }
+
+  return 0;
+}
+
+int input(int *a, int *n, int *c_shift) {
+  int error = 0;
+  char c;
+
+  if (scanf("%d", n) != 1 || *n <= 0 || *n > NMAX) {
+    error = 1;
+  } else {
+    int *p = a;
+    while (p - a < *n && !error) {
+      if (scanf("%d", p) != 1) {
+        error = 1;
+      }
+      p++;
+    }
+    // Считываем финальное число сдвига и проверяем конец строки
+    if (!error) {
+      if (scanf("%d%c", c_shift, &c) != 2 || (c != '\n' && c != ' ')) {
+        error = 1;
+      }
+    }
+  }
+
+  return error;
+}
+
+void reverse(int *a, int start, int end) {
+  while (start < end) {
+    int tmp = *(a + start);
+    *(a + start) = *(a + end);
+    *(a + end) = tmp;
+    start++;
+    end--;
+  }
+}
+
+void shift(int *a, int n, int c_shift) {
+  // Нормализуем сдвиг по размеру массива
+  c_shift = c_shift % n;
+  
+  // Если сдвиг отрицательный (вправо), переводим его в эквивалентный сдвиг влево
+  if (c_shift < 0) {
+    c_shift = n + c_shift;
+  }
+
+  if (c_shift != 0) {
+    reverse(a, 0, c_shift - 1);
+    reverse(a, c_shift, n - 1);
+    reverse(a, 0, n - 1);
+  }
+}
+
+void output(int *a, int n) {
+  for (int i = 0; i < n; i++) {
+    printf("%d", *(a + i));
+    if (i < n - 1) {
+      printf(" ");
+    }
+  }
+}
+
